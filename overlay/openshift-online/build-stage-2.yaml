@@ -12,7 +12,6 @@ metadata:
   uid: b923364c-7e6d-11ea-bbdc-02fe3a6cfaba
 spec:
   failedBuildsHistoryLimit: 5
-  nodeSelector: null
   output:
     to:
       kind: ImageStreamTag
