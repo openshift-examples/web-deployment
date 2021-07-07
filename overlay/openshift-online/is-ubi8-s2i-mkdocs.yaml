@@ -1,0 +1,19 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    build: stage-1-build-static-content
+  name: ubi8-s2i-mkdocs
+  namespace: production
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+    - annotations:
+        openshift.io/imported-from: 'quay.io/openshift-examples/ubi8-s2i-mkdocs:latest'
+      from:
+        kind: DockerImage
+        name: 'quay.io/openshift-examples/ubi8-s2i-mkdocs:latest'
+      name: latest
+      referencePolicy:
+        type: Local

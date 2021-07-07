@@ -1,0 +1,47 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"build.openshift.io/v1","kind":"BuildConfig","metadata":{"annotations":{},"name":"stage-2-nginx","namespace":"production"},"spec":{"failedBuildsHistoryLimit":5,"output":{"to":{"kind":"ImageStreamTag","name":"stage-2-nginx:latest"}},"runPolicy":"Serial","source":{"images":[{"as":null,"from":{"kind":"ImageStreamTag","name":"stage-1-build-static-content:latest"},"paths":[{"destinationDir":".","sourcePath":"/opt/app-root/src/site/."}]}],"type":"Image"},"strategy":{"sourceStrategy":{"from":{"kind":"DockerImage","name":"registry.redhat.io/rhel8/nginx-116"},"incremental":false,"pullSecret":{"name":"12102058-openshift-examples-pull-secret"}},"type":"Source"},"successfulBuildsHistoryLimit":5,"triggers":[{"type":"ConfigChange"},{"imageChange":{"from":{"kind":"ImageStreamTag","name":"stage-1-build-static-content:latest"}},"type":"imageChange"}]}}
+  creationTimestamp: '2020-04-14T16:33:51Z'
+  name: stage-2-nginx
+  namespace: production
+  resourceVersion: '683607628'
+  selfLink: /apis/build.openshift.io/v1/namespaces/production/buildconfigs/stage-2-nginx
+  uid: b923364c-7e6d-11ea-bbdc-02fe3a6cfaba
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'stage-2-nginx:latest'
+  runPolicy: Serial
+  source:
+    images:
+      - as: null
+        from:
+          kind: ImageStreamTag
+          name: 'stage-1-build-static-content:latest'
+        paths:
+          - destinationDir: .
+            sourcePath: /opt/app-root/src/site/.
+    type: Image
+  strategy:
+    sourceStrategy:
+      from:
+        kind: DockerImage
+        name: registry.redhat.io/rhel8/nginx-116
+      incremental: false
+      pullSecret:
+        name: 12102058-openshift-examples-pull-secret
+    type: Source
+  successfulBuildsHistoryLimit: 5
+  triggers:
+    - type: ConfigChange
+    - imageChange:
+        from:
+          kind: ImageStreamTag
+          name: 'stage-1-build-static-content:latest'
+      type: ImageChange

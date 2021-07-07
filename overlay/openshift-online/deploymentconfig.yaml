@@ -1,0 +1,53 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: web
+  name: web
+  namespace: production
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    app: web
+    deploymentconfig: web
+  strategy:
+    activeDeadlineSeconds: 21600
+    recreateParams:
+      timeoutSeconds: 600
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: web
+        deploymentconfig: web
+    spec:
+      containers:
+        - image:
+          imagePullPolicy: Always
+          name: web
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 8443
+              protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  test: false
+  triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - web
+        from:
+          kind: ImageStreamTag
+          name: 'stage-2-nginx:latest'
+          namespace: production
+      type: ImageChange
+    - type: ConfigChange

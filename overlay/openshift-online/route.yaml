@@ -1,0 +1,22 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    haproxy.router.openshift.io/disable_cookies: "true"
+    kubernetes.io/tls-acme: "true"
+  labels:
+    app: web
+  name: examples-openshift-pub
+  namespace: production
+spec:
+  host: examples.openshift.pub
+  port:
+    targetPort: 8080-tcp
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: web
+    weight: 100
+  wildcardPolicy: None

@@ -1,0 +1,42 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    build: stage-1-build-static-content
+  name: stage-1-build-static-content
+  namespace: production
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'stage-1-build-static-content:latest'
+  runPolicy: Serial
+  source:
+    git:
+      uri: 'https://github.com/openshift-examples/web.git'
+    type: Git
+  strategy:
+    sourceStrategy:
+      env:
+        - name: GH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              key: GH_TOKEN
+              name: github-token
+      from:
+        kind: ImageStreamTag
+        name: 'ubi8-s2i-mkdocs:latest'
+    type: Source
+  successfulBuildsHistoryLimit: 5
+  triggers:
+    - github:
+        secret: iJJ_odt4-1LmDu3kzP5P
+      type: GitHub
+    - generic:
+        secret: de8a5Yk7vX-P6_9KPsjC
+      type: Generic
+    - type: ConfigChange
+    - imageChange:
+      type: ImageChange
