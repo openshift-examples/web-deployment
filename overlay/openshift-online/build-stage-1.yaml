@@ -6,6 +6,7 @@ metadata:
   name: stage-1-build-static-content
   namespace: production
 spec:
+  nodeSelector: {}
   failedBuildsHistoryLimit: 5
   output:
     to:

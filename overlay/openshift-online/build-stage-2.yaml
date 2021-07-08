@@ -4,6 +4,7 @@ metadata:
   name: stage-2-nginx
   namespace: production
 spec:
+  nodeSelector: {}
   failedBuildsHistoryLimit: 5
   output:
     to:
