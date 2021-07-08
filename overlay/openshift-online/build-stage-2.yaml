@@ -38,3 +38,4 @@ spec:
           kind: ImageStreamTag
           name: 'stage-1-build-static-content:latest'
       type: ImageChange
+status: {}
