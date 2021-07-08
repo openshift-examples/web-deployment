@@ -10,7 +10,7 @@ spec:
       app: openshift-acme
   replicas: 2
   strategy:
-    type: RollingUpdate
+    type: Recreate
   template:
     metadata:
       labels:
