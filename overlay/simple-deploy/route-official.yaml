@@ -1,0 +1,19 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  creationTimestamp: null
+  labels:
+    app: opensift-examples
+  name: examples-openshift-pub
+spec:
+  host: examples.openshift.pub
+  port:
+    targetPort: http
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: ""
+    name: opensift-examples
+    weight: null
+status: {}
