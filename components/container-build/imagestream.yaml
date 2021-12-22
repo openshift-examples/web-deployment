@@ -1,0 +1,11 @@
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  creationTimestamp: null
+  name: openshift-examples
+spec:
+  lookupPolicy:
+    local: false
+status:
+  dockerImageRepository: ""
